@@ -46,6 +46,17 @@ export default class UserRepository{
         }
     }
 
+    async getByIdPass(userId){
+        try{
+
+            return await userModel.findById(userId).select("+password");
+
+        }catch(error){
+            console.log(error);
+            throw new ApplicationError("Unable to fetch user by id", 500);
+        }
+    }
+
     // update by user id.
     async updateById(userId, updateData){
         try{
@@ -54,6 +65,15 @@ export default class UserRepository{
         }catch(error){
             console.log(error);
             throw new ApplicationError("Unable to update the userDetails", 500);
+        }
+    }
+
+    async logout(userId){
+        try{
+            return await userModel.findByIdAndUpdate(userId, {token : null}, {new : true});
+        }catch(error){
+            console.log(error);
+            throw new ApplicationError('Unable to logout user', 500);
         }
     }
 }

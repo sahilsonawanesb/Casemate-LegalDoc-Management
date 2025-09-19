@@ -173,3 +173,62 @@ export const updateUserProfile = async(req, res, next) => {
     return next(new ApplicationError("Unable to update user profile", 500));
   }
 }
+
+// controller function for logout user.
+export const userLogout = async(req, res,) => {
+  try{
+    // for jwt based auth, logout is handled on client side by deleting the token.
+    const userId = req.id;
+
+    await userRepository.logout(userId);
+
+    res.status(200).json({
+      message : "User logged out successfully",
+    });
+  }catch(error){
+    console.log(error);
+    return next(new ApplicationError("Unable to logout user", 500));
+  }
+}
+
+// controller function for change-password.
+export const changePassword = async(req, res, next) => {
+  try{
+
+    const userId = req.id;
+    const {newPassword, confirmPassword} = req.body;
+
+    if(!newPassword || !confirmPassword){
+      return next(new ApplicationError("All fields are required", 400));  
+    }
+
+    const user = await userRepository.getByIdPass(userId);
+    if(!user){
+      return next(new ApplicationError("User not found", 404));
+    }
+
+    const isMatch = await bcrypt.compare(newPassword, user.password);
+    if(isMatch){
+      return next(new ApplicationError("New password cannot be same as current password", 404));
+    }
+
+    if(newPassword !== confirmPassword){
+      return next(new ApplicationError("New password and confirm password do not match", 404));
+    }
+  //  hash new password.
+  const salt = await bcrypt.genSalt(10);
+
+  const updatedPassword = await bcrypt.hash(newPassword, salt);
+  
+  user.password = updatedPassword;
+  await user.save();
+
+  res.status(200).json({
+    message  : "Password changed successfully",
+  })
+  
+  }catch(error){
+    console.log(error);
+    return next(new ApplicationError("Unable to change the user password", 500));
+  }
+}

@@ -1,5 +1,5 @@
 import express from "express";
-import { getUserProfile, updateUserProfile } from "../features/user/user.controller.js";
+import { changePassword, getUserProfile, updateUserProfile, userLogout } from "../features/user/user.controller.js";
 
 // create router object.
 const userRouter = express.Router();
@@ -11,7 +11,15 @@ userRouter.get('/profile', (req, res, next) => {
 
 userRouter.post('/update-profile', (req, res, next) => {
     updateUserProfile(req, res, next);
-})
+});
+
+userRouter.post('/change-password', (req, res, next) => {
+    changePassword(req, res, next);
+});
+
+userRouter.post('/logout', (req, res, next) => {
+    userLogout(req, res, next);
+});
 
 
 export default userRouter;
