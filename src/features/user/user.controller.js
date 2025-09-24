@@ -10,7 +10,6 @@ const userRepository = new UserRepository();
 
 
 
-
 // controller function for user sign up
 export const userSignUp = async (req, res, next) => {
   try {

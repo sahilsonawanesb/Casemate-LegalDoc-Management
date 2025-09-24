@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import authRouter from './routes/auth.js';
 import jwtToken from './middleware/jwt.middleware.js';
 import userRouter from './routes/user.routes.js';
+import cors from 'cors';
 
 
 
@@ -12,7 +13,14 @@ dotenv.config();
 // creating the express server as follows.
 const app = express();
 
+
 const PORT = process.env.PORT || 3000;
+
+// cors:-
+app.use(cors({
+    origin : "http://localhost:5173",
+    credentials : true
+}));
 
 
 // middleware for parsing the json data.

@@ -28,8 +28,8 @@ const userSchema = new mongoose.Schema({
     role : {
         type : String,
         enum : {
-             values : ['admin', 'attorney', 'assistant'],
-             message : 'Role is either: admin, attorney, assistant'
+             values : ['client', 'attorney', 'assistant'],
+             message : 'Role is either: client, attorney, assistant'
         },
         default : 'attorney'
     },
