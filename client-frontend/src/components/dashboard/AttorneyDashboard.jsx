@@ -8,6 +8,8 @@ import {
 
 // client dashboard.
 import SimpleClientManagement from '../clients/ClientManagement.jsx';
+import SimpleCasesManagement from '../cases/CaseManagemet.jsx';
+import DocumentsManagement from '../documents/DocumentManagement.jsx';
 
 const ModernAttorneyDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -549,6 +551,23 @@ const ModernAttorneyDashboard = () => {
             )
           }
 
+          {/* Cases Management*/}
+          {
+            activeContent === 'cases' && (
+              <main className='flex-1 overflow-y-auto p-6'>
+                <SimpleCasesManagement />
+              </main>
+            )
+          }
+
+          {/* Document Management */}
+          {
+            activeContent === 'documents' && (
+              <main className='flex-1 overflow-y-auto p-6'>
+                <DocumentsManagement />
+              </main>
+            )
+          }
             
       </div>
     </div>
