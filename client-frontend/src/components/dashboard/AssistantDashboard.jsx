@@ -33,6 +33,7 @@
 
 
   import MyTasks from '../Assistant/tasks/MyTasks.jsx';
+import ClientSupport from '../Assistant/tasks/ClientSupport.jsx';
 
   const ModernAssistantDashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -130,20 +131,12 @@
       { id: 3, name: 'Discovery Request - Taylor Case.pdf', client: 'Mark Taylor', status: 'completed', uploadTime: '6 hours ago' }
     ];
 
-    const clientCommunications = [
-      { id: 1, client: 'John Doe', type: 'call', message: 'Discussed case timeline', time: '1 hour ago', priority: 'medium' },
-      { id: 2, client: 'Jane Smith', type: 'email', message: 'Sent document request list', time: '3 hours ago', priority: 'low' },
-      { id: 3, client: 'Mike Johnson', type: 'meeting', message: 'Scheduled consultation', time: '5 hours ago', priority: 'high' }
-    ];
-
+ 
     const sidebarItems = [
       { id: 'overview', label: 'Overview', icon: Home },
       { id: 'tasks', label: 'My Tasks', icon: CheckSquare, count: stats.pendingTasks },
       { id: 'documents', label: 'Documents', icon: FolderOpen, count: stats.documentsProcessed },
       { id: 'clients', label: 'Client Support', icon: Users, count: stats.clientCalls },
-      { id: 'calendar', label: 'Calendar', icon: Calendar },
-      { id: 'communications', label: 'Communications', icon: MessageCircle },
-      { id: 'time-tracking', label: 'Time Tracking', icon: Timer }
     ];
 
     const formatTime = (date) => {
@@ -521,40 +514,7 @@
                   </div>
                 </div>
 
-                {/* Client Communications */}
-                <div className="bg-white rounded-xl shadow-sm border border-slate-100">
-                  <div className="p-6 border-b border-slate-100">
-                    <h3 className="text-lg font-semibold text-slate-900">Recent Communications</h3>
-                  </div>
-                  <div className="p-6">
-                    <div className="space-y-4">
-                      {clientCommunications.map((comm) => (
-                        <div key={comm.id} className="flex items-start space-x-3">
-                          <div className="flex-shrink-0">
-                            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                              comm.type === 'call' ? 'bg-blue-100' :
-                              comm.type === 'email' ? 'bg-green-100' : 'bg-purple-100'
-                            }`}>
-                              {comm.type === 'call' && <Phone className="w-4 h-4 text-blue-600" />}
-                              {comm.type === 'email' && <Mail className="w-4 h-4 text-green-600" />}
-                              {comm.type === 'meeting' && <Calendar className="w-4 h-4 text-purple-600" />}
-                            </div>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-slate-900">{comm.client}</p>
-                            <p className="text-xs text-slate-600 mt-1">{comm.message}</p>
-                            <div className="flex items-center mt-2">
-                              <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${getPriorityColor(comm.priority)}`}>
-                                {comm.priority}
-                              </span>
-                              <span className="text-xs text-slate-400 ml-2">{comm.time}</span>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+              
               </div>
             </div>
 
@@ -591,6 +551,15 @@
             activeContent === 'tasks' && (
               <main className='flex-1 overflow-y-auto p-6'>
                 <MyTasks />
+              </main>
+            )
+          }
+
+          {/* client-support managment */}
+          {
+            activeContent === 'clients' && (
+              <main className='flex-1 overflow-y-auto p-6'>
+                <ClientSupport />
               </main>
             )
           }
