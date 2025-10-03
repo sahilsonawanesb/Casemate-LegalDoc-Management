@@ -7,9 +7,11 @@ import {
 } from 'lucide-react';
 
 // client dashboard.
-import SimpleClientManagement from '../clients/ClientManagement.jsx';
-import SimpleCasesManagement from '../cases/CaseManagemet.jsx';
-import DocumentsManagement from '../documents/DocumentManagement.jsx';
+import SimpleClientManagement from '../Attorney/clients/ClientManagement.jsx';
+import SimpleCasesManagement from '../Attorney/cases/CaseManagemet.jsx';
+import DocumentsManagement from '../Attorney/documents/DocumentManagement.jsx';
+import TasksManagement from '../Attorney/tasks/TaskMangement.jsx';
+import TeamManagement from '../Attorney/team/TeamManagement.jsx';
 
 const ModernAttorneyDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -568,6 +570,24 @@ const ModernAttorneyDashboard = () => {
               </main>
             )
           }
+
+          {/* Tasks Management */}
+          {
+            activeContent === 'tasks' && (
+              <main className='flex-1 overflow-y-auto'>
+                <TasksManagement />
+              </main>
+            )
+          }
+
+       
+          {
+            activeContent === 'team' && (
+              <main className='flex-1 overflow-y-auto p-6'>
+                <TeamManagement />
+              </main>
+            )
+          } 
             
       </div>
     </div>
