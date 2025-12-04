@@ -43,7 +43,7 @@ const jwtToken = (req, res, next) => {
         
     } catch (error) {
         console.log('JWT Error:', error.message);
-    
+        return next(new ApplicationError('Unauthorized', 401));
     }
 }
 

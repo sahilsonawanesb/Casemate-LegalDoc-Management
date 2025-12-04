@@ -5,6 +5,8 @@ import authRouter from './routes/auth.js';
 import jwtToken from './middleware/jwt.middleware.js';
 import userRouter from './routes/user.routes.js';
 import cors from 'cors';
+import clientRouter from './routes/client.routes.js';
+import caseRouter from './routes/case.routes.js';
 
 
 
@@ -39,6 +41,12 @@ app.use('/api/auth', authRouter);
 
 // user -API
 app.use('/api/user', jwtToken, userRouter);
+
+// client - API
+app.use('/api/client', jwtToken, clientRouter);
+
+// case - API
+app.use('/api/cases', jwtToken, caseRouter);
 
 app.listen(PORT, (req, res) => {
     console.log(`Server is running on port ${PORT}`)

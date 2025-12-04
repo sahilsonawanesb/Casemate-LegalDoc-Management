@@ -13,16 +13,20 @@ const userRepository = new UserRepository();
 // controller function for user sign up
 export const userSignUp = async (req, res, next) => {
   try {
-    const { name, email, password, role, phone, address, preferences } = req.body;
+    const { name, email, password, confirmPassword, role, phone, address, preferences } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !confirmPassword) {
       return next(new ApplicationError("Name, Email, and Password are required", 400));
+    }
+
+    if(password != confirmPassword){
+      return next(new ApplicationError("Password and Confirm Password do not match"));
     }
 
     // securing the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
+  
     // prepare new user object
     const newUser = {
       name: name.trim(),
